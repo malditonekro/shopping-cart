@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 //Services
 import { ShopService } from './services/shop.service';
+import { StationService } from './services/station.service';
 
 @Component({
   selector: 'snuuper-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [ ShopService ]
+  providers: [ 
+    ShopService,
+    StationService
+   ]
 })
 
 export class AppComponent implements OnInit{
@@ -15,7 +19,8 @@ export class AppComponent implements OnInit{
   stations:any;
   constructor(
     private _title:Title, 
-    private _shopSrvc:ShopService
+    private _shopSrvc:ShopService,
+    private _stationSrvc: StationService
     ){}
 
   ngOnInit(){
@@ -25,7 +30,7 @@ export class AppComponent implements OnInit{
   }
 
   getAllStations(){
-    this._shopSrvc.getAllStations()
+    this._stationSrvc.getAllStations()
       .subscribe(
         data =>{
           if(data.success){

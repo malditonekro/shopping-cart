@@ -1,11 +1,13 @@
 <div class="col-md-12">
         <p>Items</p>
-            <div *ngFor="let item of stationItems">
-                <div>
+        <div class="row">
+            <div *ngFor="let item of stationItems" class="col-md-4">
+                <div class="item">
                     {{ item.name}}
-                    <img class="item_img" src="{{ item.url }}" alt="{{ item.name }}">
+                    <img class="item_img img-thumbnail" src="{{ item.url }}" alt="{{ item.name }}">
                     Description: {{ item.excerpt}}
                     Cost: {{ item.price }}
                 </div>
             </div>
+        </div>
 </div>

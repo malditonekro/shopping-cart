@@ -1,5 +1,5 @@
 .card-header {
-    background-color: #007bbd;
+    background-color: #25f775;
 }
 
 h2 {
@@ -35,11 +35,13 @@ nav a:visited, a:link {
   color: #607D8B;
 }
 nav a:hover {
-  color: #039be5;
-  background-color: #CFD8DC;
+    color: #fff;
+    background-color: #6aed77;
 }
 nav a.active {
-  color: #039be5;
+  color: #fff;
+  font-weight: bold;
+  background-color: #25f775;
 }
 
 li a, .dropbtn {
@@ -68,8 +70,6 @@ li.dropdown {
     display: block;
     text-align: left;
 }
-
-.dropdown-content a:hover {background-color: #f1f1f1}
 
 .dropdown:hover .dropdown-content {
     display: block;

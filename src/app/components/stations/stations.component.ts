@@ -3,13 +3,13 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 //Services
-import { ShopService } from '../../services/shop.service';
+import { StationService } from '../../services/station.service';
 
 @Component({
     selector: 'stations-component',
     templateUrl: './stations.component.html',
     styleUrls: ['./stations.component.css'],
-    providers: [ ShopService ]
+    providers: [ StationService ]
 })
 
 export class StationsComponent implements OnInit{
@@ -19,7 +19,7 @@ export class StationsComponent implements OnInit{
 
     constructor(
         private _title:Title,
-        private _shopSrvc: ShopService,
+        private _stationSrvc: StationService,
         private _actRt: ActivatedRoute,
         private _lctn: Location
         ){
@@ -34,7 +34,7 @@ export class StationsComponent implements OnInit{
 
     getStation(station:number){
         console.log('Loading catalog '+station+'...');
-        this._shopSrvc.getStation(station)
+        this._stationSrvc.getStation(station)
             .subscribe(
                 data => {                    
                     if(data != false){
