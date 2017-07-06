@@ -11,8 +11,13 @@ export class ShopService{
          
     }
 
-    public getAllStations():Observable<any>{
-        let url:string='/app/services/raw/';        
+    public getAllStations():Observable<any>{        
+        let url:string='/app/services/raw/catalog.json';
+        let stations:string[]=['Videogames', 'Electronics', 'Movies'];
+        /** 
+         * "Station's catalog reader"
+         * Returns all the available stations
+         */
         return this.http.get(url)
                         .map(
                             res => {

@@ -1,4 +1,5 @@
 import { Component, OnInit} from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'cart-details',
@@ -9,11 +10,14 @@ import { Component, OnInit} from '@angular/core';
 
 export class CartDetailsComponent implements OnInit{
 
-    constructor(){
+    constructor(
+        private _title:Title
+        ){
 
     }
     
     ngOnInit(){
+        this._title.setTitle('Snuuper App - Cart Details');
         console.log('Cart Details Component Loaded Successfully ...');
     }
 }

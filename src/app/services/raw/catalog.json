@@ -1,0 +1,18 @@
+{
+    "success": true,
+    "message": "",
+    "data": {
+        "stations": [{
+                "id": 1,
+                "name": "Videogames"
+            }, {
+                "id": 2,
+                "name": "Electronics"
+            },
+            {
+                "id": 3,
+                "name": "Movies"
+            }
+        ]
+    }
+}

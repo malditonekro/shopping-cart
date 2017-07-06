@@ -1,4 +1,5 @@
 import { Component, OnInit} from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'home-component',
@@ -9,11 +10,14 @@ import { Component, OnInit} from '@angular/core';
 
 export class HomeComponent implements OnInit{
 
-    constructor(){
+    constructor(
+        private _title:Title
+        ){
 
     }
     
     ngOnInit(){
+        this._title.setTitle('Snuuper App - Home');
         console.log('Shopping Cart Component Loaded Successfully ...');
     }
 }

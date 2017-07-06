@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 //Services
 import { ShopService } from '../../services/shop.service';
 
@@ -16,7 +17,8 @@ export class StationsComponent implements OnInit{
     category:string;
     stationItems:any;
 
-    constructor(    
+    constructor(
+        private _title:Title,
         private _shopSrvc: ShopService,
         private _actRt: ActivatedRoute,
         private _lctn: Location
@@ -27,12 +29,9 @@ export class StationsComponent implements OnInit{
     ngOnInit(){
         console.log('Stations Component Loaded Successfully ...');
         this._actRt.params
-            .subscribe( params => this.getStation(params['id']) );
+            .subscribe( params => this.getStation(params['id']) );        
     }
 
-    getAllStations(){
-
-    }
     getStation(station:number){
         console.log('Loading catalog '+station+'...');
         this._shopSrvc.getStation(station)
@@ -41,6 +40,7 @@ export class StationsComponent implements OnInit{
                     if(data != false){
                         this.category = data.station.charAt(0).toUpperCase() + data.station.slice(1);
                         this.stationItems = data.items;
+                        this._title.setTitle('Snuuper App - '+this.category+' Station');
                     }
                 }, err => {
                     console.log('Error: ', err);

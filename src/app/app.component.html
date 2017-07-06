@@ -1,7 +1,11 @@
-<div class="row">
-    <h1>Snuuper App</h1>
-
-    <div class="router-outlet">
+<div class="col-md-12">
+  <div class="card col-md-6 offset-md-3">      
+    <h2 class="card-header"> Shopping Cart </h2>
+        <nav>
+            <a routerLink="/home" routerLinkActive="active">Home</a>
+            <a *ngFor="let station of stations" routerLink="/stations/{{ station.id }}" routerLinkActive="active">{{ station.name }}</a>
+            <a routerLink="/details" routerLinkActive="active">Cart Details</a>
+        </nav>
         <router-outlet></router-outlet>
-    </div>
+  </div> 
 </div>
