@@ -2,10 +2,15 @@
   <div class="card col-md-6 offset-md-3">      
     <h2 class="card-header"> Shopping Cart </h2>
         <nav>
-            <a routerLink="/home" routerLinkActive="active">Home</a>
-            <a *ngFor="let station of stations" routerLink="/stations/{{ station.id }}" routerLinkActive="active">{{ station.name }}</a>
-            <a routerLink="/details" routerLinkActive="active">Cart Details</a>
-        </nav>
+            <a class="menuItem" routerLink="/home" routerLinkActive="active">Home</a>
+            <li class="dropdown">
+                <a class="menuItem" href="javascript:void(0)" class="dropbtn">Stations</a>
+                <div class="dropdown-content">
+                    <a *ngFor="let station of stations" routerLink="/stations/{{ station.id }}" routerLinkActive="active">{{ station.name }}</a>
+                </div>
+            </li>
+            <a class="menuItem" routerLink="/details" routerLinkActive="active">Cart Details</a>
+        </nav>        
         <router-outlet></router-outlet>
   </div> 
 </div>

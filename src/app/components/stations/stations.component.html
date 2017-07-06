@@ -1,8 +1,5 @@
-<div class="row">
-    <h3> Stations {{ category }} </h3>
-    <div>
+<div class="col-md-12">
         <p>Items</p>
-        <div class="row">
             <div *ngFor="let item of stationItems">
                 <div>
                     {{ item.name}}
@@ -11,6 +8,4 @@
                     Cost: {{ item.price }}
                 </div>
             </div>
-        </div>
-    </div>
 </div>
