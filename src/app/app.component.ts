@@ -74,14 +74,16 @@ export class AppComponent implements OnInit{
   }
   
   _showAlert(strong:string, msg:string, type:string){
-        this.alertStrong=strong;
-        this.alertMessage=msg;
-        this.alertType=type;
-        setTimeout(() =>{
-            this.alertType='';
-            this.alertStrong='';
-            this.alertMessage='';
-        },3000)
+        if(this.alertType == ''){
+          this.alertStrong=strong;
+          this.alertMessage=msg;
+          this.alertType=type;
+          setTimeout(() =>{
+              this.alertType='';
+              this.alertStrong='';
+              this.alertMessage='';
+          },3000)
+        }
     }
 
 }

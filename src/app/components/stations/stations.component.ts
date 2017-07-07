@@ -46,7 +46,7 @@ export class StationsComponent implements OnInit{
             );
     }
     addToCart(item:any){
-        console.log('"'+item.name+'" agregado al carro');
+        console.log('"'+item.name+'" added to the cart.');
     }
 }
 
