@@ -14,10 +14,8 @@ export class CartService{
         localStorage.setItem('cart', JSON.stringify(cart));
         let confirmCart = localStorage.getItem('cart');
         if(confirmCart != null){
-            console.log('[New cart] == SUCCESS // ',confirmCart);
             return confirmCart;
         }else{
-            console.log('[New cart] == ERROR');
             return false
         }
     }
@@ -27,32 +25,33 @@ export class CartService{
         if(cart!=null){
             cart.items = [];
             localStorage.setItem('cart',JSON.stringify(cart));
-            console.log('[Empty cart] == SUCCESS // ',cart);
             return true;            
         }else{
-            console.log('[Empty cart] == ERROR');
             return false;
         }
     }
 
     public getCart():any{
-        let cart = JSON.parse(localStorage.getItem('cart'));
-        if(cart == null){
-            console.log('[Get cart] == NOT FOUND');//Real ws call would be error or not found
+        try{
+            let cart = JSON.parse(localStorage.getItem('cart'));
+            if(cart == null){//Real ws call would be error or not found
+                return false;
+            }else{
+                return cart;
+            }
+
+        }catch(e){
+            console.log(e)
             return false;
-        }else{
-            console.log('[Get cart] == SUCCESS // ',cart);
-            return cart;
         }
     }
     public setCart(cart:any):any{
+        localStorage.removeItem('cart');
         localStorage.setItem('cart', JSON.stringify(cart));
         let confirmCart = localStorage.getItem('cart');
         if(confirmCart != null){
-            console.log('[New cart] == SUCCESS // ',confirmCart);
             return true;
         }else{
-            console.log('[New cart] == ERROR');
             return false
         }
     }
@@ -75,50 +74,46 @@ export class CartService{
 
     public addItem(item:any){
         let cart = this.getCart();
-        if(cart == false){
-            console.log('false', cart);
+        if(cart == false){/* Error when obtaining the existing cart */
             return false;
         }else{            
             let cartItems = cart.items;
-            let itemObj = {id:item.id,amount:1, price:item.price}
             let added=false;
-            console.log('In', cartItems);
             /** Look for equal added items */
             if(cartItems.length == 0){
+                let itemObj = {id:item.id,amount:1, price:item.price}
                 itemObj.id = item.id;
                 itemObj.price = item.price;
-                console.log('Added obj', itemObj);
                 cartItems.push(itemObj);
-                console.log('Added', cartItems);
                 added = true;
-            }else{                
-                //for(let cart_item of cartItems){
+            }else{
                 for(let i=0; i<cartItems.length; i++){
-                    if(!added){
+                    console.log('Loop n° '+i,);
+                    if(added==false){
                         let cart_item = cartItems[i];
+                        console.log('Item: '+i,cart_item);
                         if(cart_item.id == item.id){
                             cart_item.amount += 1;
-                            console.log('Increased', cart_item);
                             cartItems[i] = cart_item;
-                            added = true;
-                        }else{
-                            itemObj.id = item.id;
-                            itemObj.price = item.price;
-                            console.log('Added obj', itemObj);
-                            cartItems.push(itemObj);
-                            console.log('Added', cartItems);
                             added = true;
                         }
                     }
                 }
-                cart.items = cartItems;
-                console.log('Cart', cartItems.items);
-                let rs = this.setCart(cart);
-                if(!rs){
-                    return false
+                if(added==false){
+                    let itemObj = {id:item.id,amount:1, price:item.price}
+                    itemObj.id = item.id;
+                    itemObj.price = item.price;
+                    cartItems.push(itemObj);
+                    added = true;
                 }
             }
-            return added;
+            cart.items = cartItems;
+            let rs = this.setCart(cart);
+            if(!rs){
+                return false
+            }else{
+                return added;
+            }
         }
     }
 

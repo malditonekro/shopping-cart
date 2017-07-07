@@ -58,13 +58,7 @@ export class AppComponent implements OnInit{
     }
   newCart(){
       let response = this._cartSrvc.newCart();
-      if(response){
-          this._showAlert(
-              'Done!',
-              'The cart has been created. Start shopping!',
-              'success',
-          );
-      }else{
+      if(response == false){
           this._showAlert(
               'ERROR!',
               'There has been a problem trying to create the cart :(',
