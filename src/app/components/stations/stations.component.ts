@@ -4,24 +4,32 @@ import { Location } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 //Services
 import { StationService } from '../../services/station.service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
     selector: 'stations-component',
     templateUrl: './stations.component.html',
     styleUrls: ['./stations.component.css'],
-    providers: [ StationService ]
+    providers: [ 
+        StationService,
+        CartService
+    ]
 })
 
 export class StationsComponent implements OnInit{
     
     category:string;
     stationItems:any;
+    private alertStrong:string='';
+    private alertMessage:string='';
+    private alertType:string='';
 
     constructor(
-        private _title:Title,
-        private _stationSrvc: StationService,
         private _actRt: ActivatedRoute,
-        private _lctn: Location
+        private _cartSrvc: CartService,
+        private _lctn: Location,
+        private _stationSrvc: StationService,
+        private _title:Title
         ){
 
     }
@@ -46,7 +54,33 @@ export class StationsComponent implements OnInit{
             );
     }
     addToCart(item:any){
-        console.log('"'+item.name+'" added to the cart.');
+        let rs = this._cartSrvc.addItem(item);
+        if(rs){
+            this._showAlert(
+                'DONE!',
+                item.name+' added to the cart.',
+                'success',
+            );
+        }else{
+            this._showAlert(
+                'ERROR!',
+                'There has been a problem adding the item to the cart :(',
+                'error',
+            );
+        }
+    }
+
+    _showAlert(strong:string, msg:string, type:string){
+        if(this.alertType == ''){
+            this.alertStrong=strong;
+            this.alertMessage=msg;
+            this.alertType=type;
+            setTimeout(() =>{
+                this.alertType='';
+                this.alertStrong='';
+                this.alertMessage='';
+            },3000)
+        }
     }
 }
 

@@ -9,3 +9,19 @@
     border: 1px solid #25f775;
     padding:5px;
 }
+
+  .card {
+    margin-top: 15px;
+  }
+  .card-text {
+    height: 50px;
+  }
+  .card-img {
+    height: 160px;
+  }
+  .img-fluid {
+    max-height: 160px;
+  }
+  .card-header{
+      height: 70px;
+  }

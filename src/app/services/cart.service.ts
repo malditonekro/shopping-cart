@@ -45,6 +45,17 @@ export class CartService{
             return cart;
         }
     }
+    public setCart(cart:any):any{
+        localStorage.setItem('cart', JSON.stringify(cart));
+        let confirmCart = localStorage.getItem('cart');
+        if(confirmCart != null){
+            console.log('[New cart] == SUCCESS // ',confirmCart);
+            return true;
+        }else{
+            console.log('[New cart] == ERROR');
+            return false
+        }
+    }
 
     public getCartVigencyStatus():any{
         let rs = this.getCart();
@@ -62,8 +73,53 @@ export class CartService{
         }
     }
 
-    public addItem(){
-
+    public addItem(item:any){
+        let cart = this.getCart();
+        if(cart == false){
+            console.log('false', cart);
+            return false;
+        }else{            
+            let cartItems = cart.items;
+            let itemObj = {id:item.id,amount:1, price:item.price}
+            let added=false;
+            console.log('In', cartItems);
+            /** Look for equal added items */
+            if(cartItems.length == 0){
+                itemObj.id = item.id;
+                itemObj.price = item.price;
+                console.log('Added obj', itemObj);
+                cartItems.push(itemObj);
+                console.log('Added', cartItems);
+                added = true;
+            }else{                
+                //for(let cart_item of cartItems){
+                for(let i=0; i<cartItems.length; i++){
+                    if(!added){
+                        let cart_item = cartItems[i];
+                        if(cart_item.id == item.id){
+                            cart_item.amount += 1;
+                            console.log('Increased', cart_item);
+                            cartItems[i] = cart_item;
+                            added = true;
+                        }else{
+                            itemObj.id = item.id;
+                            itemObj.price = item.price;
+                            console.log('Added obj', itemObj);
+                            cartItems.push(itemObj);
+                            console.log('Added', cartItems);
+                            added = true;
+                        }
+                    }
+                }
+                cart.items = cartItems;
+                console.log('Cart', cartItems.items);
+                let rs = this.setCart(cart);
+                if(!rs){
+                    return false
+                }
+            }
+            return added;
+        }
     }
 
     public deleteItem(){
