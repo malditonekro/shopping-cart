@@ -18,7 +18,6 @@ export class CartDetailsComponent implements OnInit{
     
     ngOnInit(){
         this._title.setTitle('Snuuper App - Cart Details');
-        console.log('Cart Details Component Loaded Successfully ...');
     }
 }
 

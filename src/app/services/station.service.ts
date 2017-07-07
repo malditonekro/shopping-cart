@@ -35,13 +35,13 @@ export class StationService{
         let url:string='/app/services/raw/';
         let stn = station.toString();
         switch(stn){
-            case '1':{ url += 'videogames.json'; console.log('video');
+            case '1':{ url += 'videogames.json';
                 break;
             }
-            case '2':{ url += 'electronics.json'; console.log('elec');
+            case '2':{ url += 'electronics.json';
                 break;
             }
-            case '3':{ url += 'movies.json'; console.log('movies');
+            case '3':{ url += 'movies.json';
                 break;
             }
         }

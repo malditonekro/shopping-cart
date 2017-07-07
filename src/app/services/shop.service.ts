@@ -7,7 +7,14 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class ShopService{
 
-    constructor(private http: Http) {
-         
+    public cart:any;
+
+    constructor(
+        private http: Http
+    ){}
+
+    buyItems(){
+
     }
+
 }

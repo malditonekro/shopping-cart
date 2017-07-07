@@ -1,13 +1,18 @@
 <div class="col-md-12">
-        <p>Items</p>
-        <div class="row">
-            <div *ngFor="let item of stationItems" class="col-md-4">
-                <div class="item">
-                    {{ item.name}}
+    <p>Items</p>
+    <div class="row justify-content-around">
+        <div *ngFor="let item of stationItems" class="col-md-2 item">
+            <div class="item-{{ item.id }}">
+                <div>
+                    <p>{{ item.name }}</p>
                     <img class="item_img img-thumbnail" src="{{ item.url }}" alt="{{ item.name }}">
-                    Description: {{ item.excerpt}}
-                    Cost: {{ item.price }}
+                    <p>{{ item.excerpt }}</p>
+                    <p>
+                        Price: ${{ item.price }}
+                    </p>
                 </div>
+                <button class="btn btn-primary btn-{{ item.id }}" (click)="addToCart(item)">Add to cart</button>
             </div>
         </div>
+    </div>
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 //Services
 import { ShopService } from './services/shop.service';
+import { CartService } from './services/cart.service';
 import { StationService } from './services/station.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { StationService } from './services/station.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   providers: [ 
+    CartService,
     ShopService,
     StationService
    ]
@@ -17,16 +19,21 @@ import { StationService } from './services/station.service';
 export class AppComponent implements OnInit{
 
   stations:any;
+  private alertStrong:string='';
+  private alertMessage:string='';
+  private alertType:string='';
+
   constructor(
-    private _title:Title, 
+    private _cartSrvc:CartService,
     private _shopSrvc:ShopService,
-    private _stationSrvc: StationService
+    private _stationSrvc: StationService,
+    private _title:Title
     ){}
 
   ngOnInit(){
     this._title.setTitle('Snuuper App');
     this.getAllStations();
-    console.log('Application Component Loaded Successfully ...');
+    this.getCartVigencyStatus();
   }
 
   getAllStations(){
@@ -36,11 +43,45 @@ export class AppComponent implements OnInit{
           if(data.success){
             this.stations = data.data.stations;
           }
-          console.log(this.stations);
         },err => {
           console.log('Error when retrieving all the stations: ',err);
         }
       );
   }
+
+  getCartVigencyStatus(){
+        //this._cartSrvc.getCartVigencyStatus();
+        let response = this._cartSrvc.getCartVigencyStatus();
+        if(!response){
+            this.newCart();
+        }
+    }
+  newCart(){
+      let response = this._cartSrvc.newCart();
+      if(response){
+          this._showAlert(
+              'Done!',
+              'The cart has been created. Start shopping!',
+              'success',
+          );
+      }else{
+          this._showAlert(
+              'ERROR!',
+              'There has been a problem trying to create the cart :(',
+              'error',
+          );
+      }
+  }
+  
+  _showAlert(strong:string, msg:string, type:string){
+        this.alertStrong=strong;
+        this.alertMessage=msg;
+        this.alertType=type;
+        setTimeout(() =>{
+            this.alertType='';
+            this.alertStrong='';
+            this.alertMessage='';
+        },3000)
+    }
 
 }

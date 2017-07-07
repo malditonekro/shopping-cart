@@ -27,13 +27,11 @@ export class StationsComponent implements OnInit{
     }
     
     ngOnInit(){
-        console.log('Stations Component Loaded Successfully ...');
         this._actRt.params
             .subscribe( params => this.getStation(params['id']) );        
     }
 
     getStation(station:number){
-        console.log('Loading catalog '+station+'...');
         this._stationSrvc.getStation(station)
             .subscribe(
                 data => {                    
@@ -46,6 +44,9 @@ export class StationsComponent implements OnInit{
                     console.log('Error: ', err);
                 } 
             );
+    }
+    addToCart(item:any){
+        console.log('"'+item.name+'" agregado al carro');
     }
 }
 

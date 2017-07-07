@@ -1,6 +1,22 @@
+<div *ngIf="alertType!=''" class="alert" [ngClass]="{'alert-success': alertType=='success', 'alert-danger': alertType=='error'}" role="alert">
+    <strong> {{ alertStrong }}</strong> {{ alertMessage }}
+</div>
 <div class="col-md-12">
-    New cart
-    Empty cart    
-    <!--<div class="col-md-12">
-    </div>-->
+    <div class="row justify-content-around">
+        <div class="col-md-4">
+            <!--Bienvenida-->
+            <p class="lead">Snuuper!</p>
+            Welcome to the Snuuper Store!
+
+            <p>Please visit our stations to buy items like videogames, movies or electronics.
+            :)</p>
+        </div>
+        <div class="col-md-4">
+            <!-- Acciones -->
+            <p>Actions</p>
+            <a class="btn btn-success" routerLink="/stations/1" routerLinkActive="active">Start Shopping</a>
+            <a class="btn btn-info" routerLink="/details" routerLinkActive="active">Checkout</a>
+            <button class="btn btn-danger" (click)="emptyCart()">Empty Cart</button>
+        </div>        
+    </div>
 </div>
