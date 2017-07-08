@@ -2,13 +2,15 @@ import { Component, OnInit} from '@angular/core';
 import { Title } from '@angular/platform-browser';
 //Services
 import { CartService } from '../../services/cart.service';
+import { ShopService } from '../../services/shop.service';
 
 @Component({
     selector: 'cart-details',
     templateUrl: './cart-details.component.html',
     styleUrls: ['./cart-details.component.css'],
     providers: [
-        CartService
+        CartService,
+        ShopService
     ]
 })
 
@@ -23,7 +25,8 @@ export class CartDetailsComponent implements OnInit{
     totalCost:number=0;
     constructor(
         private _title:Title,
-        private _cartSrvc:CartService
+        private _cartSrvc:CartService,
+        private _shopSrvc:ShopService
         ){
 
     }
@@ -54,10 +57,15 @@ export class CartDetailsComponent implements OnInit{
         if( cart != false ){
             this.cart = cart;
             this.cartItems = cart.items;
-            for(let cartItem of this.cartItems){
-                this.totalCost += (cartItem.amount * cartItem.price );
+            if(this.cartItems.length > 0){
+                for(let cartItem of this.cartItems){
+                    this.totalCost += (cartItem.amount * cartItem.price );
+                }
+                this.showData = true;
+            }else{
+                this.showData = false;
+                this.totalCost = 0;
             }
-            this.showData = true;
         }else{
             this._showAlert(
                 'ERROR!',
@@ -97,6 +105,34 @@ export class CartDetailsComponent implements OnInit{
                 'error',
             );
         }
+    }
+
+    pay(){
+        this._shopSrvc.buyItems({})
+            .subscribe(
+                data => {
+                    if(data == false){
+                        this._showAlert(
+                            'ERROR!',
+                            "We couldn't process your payment :(",
+                            'error',
+                        );
+                    }else{
+                        this._showAlert(
+                            'DONE!',
+                            "Enjoy your acquired items :) Thanks for choosing us.",
+                            'success',
+                        );
+                    }
+                },err=> {
+                    console.log('Payment error',err);
+                    this._showAlert(
+                        'ERROR!',
+                        'There has been a problem trying to empty the cart :(',
+                        'error',
+                    );
+                }
+            );
     }
 
     _showAlert(strong:string, msg:string, type:string){

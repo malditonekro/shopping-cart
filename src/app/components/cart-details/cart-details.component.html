@@ -42,7 +42,7 @@
                     <button class="btn btn-danger" (click)="emptyCart()">Empty Cart</button>
                     <div *ngIf="showData" class="col-md-12 pay-section">
                         <p class="lead"> Total: ${{ totalCost }}
-                            <button class="btn btn-success"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Pay</button>
+                            <button class="btn btn-success" (click)="pay()"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Pay</button>
                         </p>            
                     </div>
                 </div>
