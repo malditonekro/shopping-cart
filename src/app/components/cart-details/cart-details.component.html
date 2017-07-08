@@ -3,19 +3,50 @@
 </div>
 <div class="col-md-12">
     <div class="row justify-content-around">
-        <div class="col-md-4">
-            <!--Bienvenida-->
-            <p class="lead">Snuuper!</p>
-            View in construction
-
-            <p>Replicated view from Home page</p>
+        <div class="col-md-7">
+            <h4>Cart's items</h4>
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Item Price</th>
+                            <th>Total cost</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="showData">
+                        <tr *ngFor="let cartItem of cartItems" >
+                            <th scope="row">{{ cartItem.id }}</th><!--Id-->
+                            <td>{{ cartItem.name }}</td><!--Item-->
+                            <td>{{ cartItem.amount }}</td><!--Quantity-->
+                            <td>{{ cartItem.price }}</td><!--Item Price-->
+                            <td>{{ (cartItem.price * cartItem.amount) }}</td><!--Total cost-->
+                            <td><!--Action-->
+                                <button class="btn btn-danger" (click)="delete(cartItem,false)"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                <button *ngIf="cartItem.amount > 1" class="btn btn-danger" (click)="delete(cartItem,true)" ><i class="fa fa-times" aria-hidden="true"></i> All</button>
+                            </td>
+                        </tr>
+                    </tbody>                    
+                </table>
+            </div>
         </div>
         <div class="col-md-4">
-            <!-- Acciones -->
-            <p>Actions</p>
-            <button class="btn btn-success">Pay</button>
-            <a class="btn btn-info" routerLink="/stations/1" routerLinkActive="active">Keep shopping</a><!-- This should return to the last stations view visited *UNDER DEVELOPEMENT*-->
-            <button class="btn btn-danger" (click)="emptyCart()">Empty Cart</button>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Acciones -->
+                    <p>Actions</p>
+                    <a class="btn btn-info" routerLink="/stations/1" routerLinkActive="active">Keep shopping</a><!-- This should return to the last stations view visited *UNDER DEVELOPEMENT*-->
+                    <button class="btn btn-danger" (click)="emptyCart()">Empty Cart</button>
+                    <div *ngIf="showData" class="col-md-12 pay-section">
+                        <p class="lead"> Total: ${{ totalCost }}
+                            <button class="btn btn-success"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Pay</button>
+                        </p>            
+                    </div>
+                </div>
+            </div>
         </div>        
     </div>
 </div>

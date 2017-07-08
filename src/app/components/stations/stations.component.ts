@@ -80,6 +80,10 @@ export class StationsComponent implements OnInit{
                 this.alertStrong='';
                 this.alertMessage='';
             },3000)
+        }else{
+            this.alertStrong=strong;
+            this.alertMessage=msg;
+            this.alertType=type;
         }
     }
 }

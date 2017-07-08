@@ -1,25 +1,6 @@
 <div *ngIf="alertType!=''" class="alert" [ngClass]="{'alert-success': alertType=='success', 'alert-danger': alertType=='error'}" role="alert">
     <strong> {{ alertStrong }}</strong> {{ alertMessage }}
 </div>
-<!--<div class="col-md-12">
-    <p>Items</p>
-    <div class="row justify-content-around">
-        <div *ngFor="let item of stationItems" class="col-md-2 item">
-            <div class="child-item">
-                <p>{{ item.name }}</p>
-                <img class="item_img img-thumbnail" src="{{ item.url }}" alt="{{ item.name }}">
-                <p>{{ item.excerpt }}</p>
-                <p class="align-items-end">
-                    Price: ${{ item.price }}
-                </p>
-            </div>
-            <button class="btn btn-primary btn-{{ item.id }} align-items-end" (click)="addToCart(item)">Add to cart</button>
-        </div>
-    </div>
-</div>-->
-
-
-
 <div class="container">
   <div class="row">
 
@@ -36,7 +17,7 @@
             <!--<h4 class="card-title"><br>Special title treatment</h4>--><br/>
             <p class="card-text">{{ item.excerpt }}</p>
             <!--<a href="#" class="btn btn-primary" (click)="addToCart(item)"> add to cart</a>-->
-            <button class="btn btn-primary btn-{{ item.id }} align-items-end" (click)="addToCart(item)"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Add to cart</button>
+            <button class="btn btn-primary btn-{{ item.id }} align-items-end" (click)="addToCart(item)"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to cart</button>
             </div>
             <div class="card-footer text-muted">
             $ {{ item.price }}

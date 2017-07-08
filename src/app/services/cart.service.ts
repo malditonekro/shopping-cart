@@ -81,17 +81,15 @@ export class CartService{
             let added=false;
             /** Look for equal added items */
             if(cartItems.length == 0){
-                let itemObj = {id:item.id,amount:1, price:item.price}
+                let itemObj = {id:item.id, name:item.name, amount:1, price:item.price}
                 itemObj.id = item.id;
                 itemObj.price = item.price;
                 cartItems.push(itemObj);
                 added = true;
             }else{
                 for(let i=0; i<cartItems.length; i++){
-                    console.log('Loop n° '+i,);
                     if(added==false){
                         let cart_item = cartItems[i];
-                        console.log('Item: '+i,cart_item);
                         if(cart_item.id == item.id){
                             cart_item.amount += 1;
                             cartItems[i] = cart_item;
@@ -100,7 +98,7 @@ export class CartService{
                     }
                 }
                 if(added==false){
-                    let itemObj = {id:item.id,amount:1, price:item.price}
+                    let itemObj = {id:item.id, name:item.name, amount:1, price:item.price}
                     itemObj.id = item.id;
                     itemObj.price = item.price;
                     cartItems.push(itemObj);
@@ -117,11 +115,55 @@ export class CartService{
         }
     }
 
-    public deleteItem(){
-        
-    }
+    public deleteItem(item:any, all:boolean){
+        let cart = this.getCart();
+        if(cart == false){/* Error when obtaining the existing cart */
+            return false;
+        }else{            
+            let cartItems = cart.items;
+            let removed=false;            
+            console.log('Item',typeof(item),item);
+            console.log('All',typeof(all),all);
+            for(let i=0; i<cartItems.length; i++){
+                if(removed==false){
+                    let cart_item = cartItems[i];
+                    console.log('CartItem',typeof(cart_item),cart_item);
+                    if(cart_item.id == item.id){
+                        console.log("They're equals");
+                        if(all){
+                            cartItems.splice(i,1);
+                            console.log('All Item removed',cartItems);
+                            removed = true;
+                        }else{
+                            if(cart_item.amount <= 1){
+                                cartItems.splice(i,1);
+                                console.log('Single, Item removed',cartItems);
+                                removed = true;
+                            }else{
+                                cart_item.amount--;
+                                console.log('Reduced cart item',cart_item);
+                                cartItems[i] = cart_item;
+                                removed = true;
+                            }
+                        }
+                    }
+                }
+            }
+            cart.items = cartItems;
+            let rs = this.setCart(cart);
+            if(!rs){
+                return false
+            }else{
+                return cart;
+            }
+        }
 
-    public deleteAllSameItems(){
-        
+
+
+        // if(1+1==0){
+        //     return this.getCart();
+        // }else{
+        //     return false;
+        // }
     }
 }
