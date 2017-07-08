@@ -20,7 +20,7 @@ Or download the zip by clicking the Download zip option or from the following li
 
 After the previous step:
 
-    - cd shopping terminal 
+    - cd shopping-cart
 
 Or open the project folder in the terminal and then run:
 

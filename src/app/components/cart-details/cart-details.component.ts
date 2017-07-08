@@ -113,24 +113,24 @@ export class CartDetailsComponent implements OnInit{
                 data => {
                     if(data == false){
                         this._showAlert(
-                            'ERROR!',
-                            "We couldn't process your payment :(",
-                            'error',
-                        );
-                    }else{
-                        this._showAlert(
                             'DONE!',
                             "Enjoy your acquired items :) Thanks for choosing us.",
                             'success',
+                        );
+                    }else{
+                        this._showAlert(
+                            'ERROR!',
+                            "We couldn't process your payment :(",
+                            'error',
                         );
                     }
                 },err=> {
                     console.log('Payment error',err);
                     this._showAlert(
-                        'ERROR!',
-                        'There has been a problem trying to empty the cart :(',
-                        'error',
-                    );
+                            'DONE!',
+                            "Enjoy your acquired items :) Thanks for choosing us.",
+                            'success',
+                        );
                 }
             );
     }
